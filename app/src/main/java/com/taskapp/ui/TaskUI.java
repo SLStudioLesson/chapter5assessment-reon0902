@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.taskapp.exception.AppException;
 import com.taskapp.logic.TaskLogic;
 import com.taskapp.logic.UserLogic;
 import com.taskapp.model.User;
-
 public class TaskUI {
     private final BufferedReader reader;
 
@@ -45,7 +45,9 @@ public class TaskUI {
      */
     public void displayMenu() {
         System.out.println("タスク管理アプリケーションにようこそ!!");
-
+        if (loginUser == null) {
+            inputLogin();
+        }
         // メインメニュー
         boolean flg = true;
         while (flg) {
@@ -59,6 +61,7 @@ public class TaskUI {
 
                 switch (selectMenu) {
                     case "1":
+                        taskLogic.showAll(loginUser);
                         break;
                     case "2":
                         break;
@@ -82,18 +85,112 @@ public class TaskUI {
      *
      * @see com.taskapp.logic.UserLogic#login(String, String)
      */
-    // public void inputLogin() {
-    // }
+    public void inputLogin() {
+        boolean isLoggedIn= false;
+        while(!isLoggedIn) {
+            try{
+                System.out.println("メールアドレスを入力してください：");
+                String email=reader.readLine();
 
+                System.out.println("パスワードを入力してください：");
+                String password=reader.readLine();
+            
+                loginUser=userLogic.login(email, password);
+                System.out.println("ユーザー名："+loginUser.getName()+"でログインしました。");
+            
+            isLoggedIn=true;
+
+            displayMenu();
+            
+            }catch(AppException e){
+                System.out.println("既に登録されているメールアドレス、パスワードを入力してください");
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
     /**
      * ユーザーからの新規タスク情報を受け取り、新規タスクを登録します。
      *
      * @see #isNumeric(String)
      * @see com.taskapp.logic.TaskLogic#save(int, String, int, User)
      */
-    // public void inputNewInformation() {
-    // }
+    public void inputNewInformation() {
+        int taskCode;
+        String taskName;
+        int usercode;
 
+        while(true) {
+            try{
+            System.out.print("タスクコードを入力してください：");
+            String inputcode=reader.readLine();
+
+            if(!isNumber(inputcode)){
+                System.out.println("コードは半角の数字で入力してください");
+                continue;
+            }
+                taskCode=Integer.parseInt(inputcode);
+                break;
+            
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        while(true){
+            try{
+            System.out.println("タスク名を入力してください：");
+                taskName=reader.readLine();
+            
+                if(taskName.length()<=10){
+                    break;
+                }else{
+                    System.out.println("タスク名は10文字以内で入力してください");
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            
+            
+            }
+        while(true){
+            try{
+                System.out.println("担当するユーザーのコードを選択してください：");
+                String inputUserCode=reader.readLine();
+
+                if(!isNumber(inputUserCode)){
+                    usercode=Integer.parseInt(inputUserCode);
+                    System.out.println("ユーザーのコードは半角の数字で入力してください");
+                    
+
+
+
+
+
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                }
+            
+            
+            }
+        }
+    
+    
+    
+    
+    
+    
+    
+    }
     /**
      * タスクのステータス変更または削除を選択するサブメニューを表示します。
      *
