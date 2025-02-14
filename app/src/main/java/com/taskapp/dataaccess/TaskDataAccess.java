@@ -121,8 +121,11 @@ public class TaskDataAccess {
         }
         
         }
-        try (BufferedWriter writer=new BufferedWriter(new FileWriter(filePath,true))) {
+        // コメント：FileWriterインスタンス生成時に第二引数をtrueにすると、上書きモードになってしまいます。
+        // try (BufferedWriter writer=new BufferedWriter(new FileWriter(filePath,true))) {
+        try (BufferedWriter writer=new BufferedWriter(new FileWriter(filePath))) {
             writer.write("Code,Name,Status,Rep_User_Code");
+            writer.write("\n");
             for(Task task2:task){
                 String line=createLine(task2);
             writer.write(line);
@@ -133,7 +136,9 @@ public class TaskDataAccess {
             }
         }
     public String createLine(Task task){
-        return task.getCode()+","+task.getName()+","+task.getStatus()+","+task.getRepUser();
+        // コメント：task.getRepUser()はオブジェクトなので文字化けします。getCode()を実行しましょう
+        // return task.getCode()+","+task.getName()+","+task.getStatus()+","+task.getRepUser();
+        return task.getCode()+","+task.getName()+","+task.getStatus()+","+task.getRepUser().getCode();
     }
 
     /**

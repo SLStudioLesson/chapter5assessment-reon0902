@@ -72,7 +72,8 @@ public class TaskUI {
                         break;
                     case "3":
                         System.out.println("ログアウトしました。");
-                        loginUser=null;
+                        // コメント：不要です
+                        // loginUser=null;
                         flg = false;
                         break;
                     default:
@@ -84,9 +85,10 @@ public class TaskUI {
             }
             System.out.println();
         }
-    if(loginUser==null) {
-        inputLogin();
-    }
+    // コメント：不要です
+    // if(loginUser==null) {
+    //     inputLogin();
+    // }
     }
 
     /**
@@ -108,8 +110,8 @@ public class TaskUI {
                 System.out.println("ユーザー名：" + loginUser.getName() + "でログインしました。");
 
                 isLoggedIn = true;
-
-                displayMenu();
+                // コメント：二重にdisplayMenu()を実行することになってしまうので、不要です
+                // displayMenu();
 
             } catch (AppException e) {
                 System.out.println("既に登録されているメールアドレス、パスワードを入力してください");

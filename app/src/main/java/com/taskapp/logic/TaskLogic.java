@@ -67,7 +67,10 @@ public class TaskLogic {
                 if (task.getRepUser().equals(loginUser)) {
                 reUserName = "あなた";
             } else {
-                reUserName = task.getRepUser().toString();
+                // コメント：getRepUser()の戻り値はuserオブジェクトであって、ユーザー名ではありません。
+                // getName()でちゃんとユーザー名を参照しましょう。
+                // reUserName = task.getRepUser().toString();
+                reUserName = task.getRepUser().getName();
             }
             System.out.println("タスク名：" + taskName + ", 担当者名：" + reUserName + "が担当しています, ステータス：" + status);
         }
