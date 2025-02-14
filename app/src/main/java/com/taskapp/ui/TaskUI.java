@@ -72,6 +72,7 @@ public class TaskUI {
                         break;
                     case "3":
                         System.out.println("ログアウトしました。");
+                        loginUser=null;
                         flg = false;
                         break;
                     default:
@@ -83,6 +84,9 @@ public class TaskUI {
             }
             System.out.println();
         }
+    if(loginUser==null) {
+        inputLogin();
+    }
     }
 
     /**

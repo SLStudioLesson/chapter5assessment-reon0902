@@ -67,7 +67,7 @@ public class TaskLogic {
                 if (task.getRepUser().equals(loginUser)) {
                 reUserName = "あなた";
             } else {
-                reUserName = task.getRepUser().getName();
+                reUserName = task.getRepUser().toString();
             }
             System.out.println("タスク名：" + taskName + ", 担当者名：" + reUserName + "が担当しています, ステータス：" + status);
         }
